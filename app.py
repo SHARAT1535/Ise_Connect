@@ -39,6 +39,7 @@ def hello():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
     return render_template('login.html')
 
 @app.route('/about_ise', methods=['GET', 'POST'])
@@ -52,6 +53,8 @@ def about_ise():
 def signup():
     if request.method == 'POST':
         
+        name = request.form['name']
+        usn = request.form['usn']
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
@@ -65,6 +68,15 @@ def signup():
                 email=email,
                 password=password
             )
+
+            user_data = {
+                'name':name,
+                'usn':usn,
+                'email':email,
+                'created_at': firestore.SERVER_TIMESTAMP
+
+            }
+            db.collection('user_data').document(user.uid).set(user_data)
             flash("User created successfully!", "success")
             return redirect(url_for('login')) 
 
