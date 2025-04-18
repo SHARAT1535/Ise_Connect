@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #444;
+            margin: 10px 0;
+        }
+
+        .btn-logout {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: #e60000;
+        }
+
+        .profile-pic {
+            display: block;
+            margin: 20px auto;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ user.name }} </h1>
+        <p><strong>USN:</strong> {{ user.usn }}</p>
+        <p><strong>About me:</strong> {{ user.about_me }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone Number:</strong> {{ user.phone }}</p>
+
+        {% if user.profile_pic_url %}
+            <img src="{{ user.profile_pic_url }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+            <p>No profile picture uploaded.</p>
+        {% endif %}
+
+        <form action="{{ url_for('about_ise') }}" method="POST">
+            <button class="btn-logout" type="submit">Request for Alumni</button>
+        </form>
+        
+        <form action="{{ url_for('profileedit') }}" method="POST">
+            <button class="btn-logout" type="submit">Edit Your Profile</button>
+        </form>
+        
+        <form action="{{ url_for('logout') }}" method="POST">
+            <button class="btn-logout" type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

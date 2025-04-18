@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #eef2f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>Edit Your Profile</h2>
+    <form action="{{ url_for('update_profile') }}" method="POST" enctype="multipart/form-data">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" value="{{ user.name }}">
+
+        <label for="usn">USN</label>
+        <input type="text" id="usn" name="usn" value="{{ user.usn }}">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="{{ user.email }}">
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" value="{{ user.phone }}">
+
+        <label for="password">Change Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter new password">
+
+        <input type="hidden" role="uploadcare-uploader" name="profile_pic_url" data-clearable />
+
+
+
+        <label for="internship">Internship Details</label>
+        <input type="text" id="internship" name="internship" value="{{ user.internship }}">
+
+        <label for="working_at">Currently Working At</label>
+        <input type="text" id="working_at" name="working_at" value="{{ user.working_at }}">
+
+        <label for="experience">Experience</label>
+        <textarea id="experience" name="experience">{{ user.experience }}</textarea>
+
+        <label for="about_me">About Me</label>
+        <textarea id="about_me" name="about_me">{{ user.about_me }}</textarea>
+
+        <label for="skills">Skills</label>
+        <input type="text" id="skills" name="skills" placeholder="E.g. Python, Java, Web Development" value="{{ user.skills }}">
+
+        <label for="linkedin">LinkedIn Profile</label>
+        <input type="text" id="linkedin" name="linkedin" value="{{ user.linkedin }}">
+
+        <label for="github">GitHub Profile</label>
+        <input type="text" id="github" name="github" value="{{ user.github }}">
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+<script>
+    UPLOADCARE_PUBLIC_KEY = "{{ uploadcare_key }}";
+  </script>
+
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+
+</body>
+</html>

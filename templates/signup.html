@@ -21,7 +21,7 @@
         h1 {
             text-align: center;
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="password"], input[type="email"] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -59,17 +59,19 @@
         p {
             text-align: center;
         }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
     <h1>About ISE</h1>
     <p>Sign up page of ISE</p>
 
-    <form method="POST" action="/signup">
+    <form method="POST" action="/signup" onsubmit="return validateForm()">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
-
-    
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
@@ -80,10 +82,23 @@
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
-        <label for="USN">usn:</label>
+        <label for="USN">USN:</label>
         <input type="text" id="usn" name="usn" required><br><br>
 
         <button type="submit">Sign Up</button>
     </form>
+
+    <script>
+        function validateForm() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>
