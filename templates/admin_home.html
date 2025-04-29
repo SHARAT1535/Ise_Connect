@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #2c3e50; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        a { text-decoration: none; color: #3498db; }
+    </style>
+</head>
+<body>
+    <h1>Welcome, Admin</h1>
+    <p>Select an action:</p>
+    <ul>
+        <li><a href="{{url_for('admin_users')}} ">Manage Users</a></li>
+        <li><a href="{{url_for('admin_library')}}">Manage Library</a></li>
+        <li><a href="{{url_for('admin_gallery')}}">Upload Gallery</a></li>
+        <li><a href="#">Send Notifications</a></li>
+        <li><a href="#">Logout</a></li>
+    </ul>
+</body>
+</html>

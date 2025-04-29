@@ -12,42 +12,20 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from firebase_admin import auth 
-import cloudinary
-import cloudinary.uploader
-from cloudinary.utils import cloudinary_url
 
 
 
 import os
 from werkzeug.utils import secure_filename
-load_dotenv()
+
 uploadcare_key = os.getenv("UPLOADCARE_PUBLIC_KEY")
-API_KEY = "AIzaSyC1Y1TFKP0b-L7aFiNanvvjLdy6ufmR998"
-
-
-
-import cloudinary
-import cloudinary.uploader
-from cloudinary.utils import cloudinary_url
-
-# Cloudinary configuration
-cloudinary.config( 
-    cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME"), 
-    api_key = os.getenv("CLOUDINARY_API_KEY"), 
-    api_secret = os.getenv("CLOUDINARY_API_SECRET"),
-    secure=True
-)
-
-
-
-
 
 
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  
 
-
+load_dotenv()
 
 encoded_key = os.getenv("FIREBASE_SERVICE_ACCOUNT_BASE64")
 
@@ -72,7 +50,9 @@ def hello():
 @app.route('/admin/home')
 def admin_home():
     return render_template('admin_home.html') 
-
+@app.route('/admin/library')
+def admin_library():
+    return render_template('admin_library.html')
 @app.route('/admin/gallery')
 def admin_gallery():
     return render_template('admin_gallary.html')
@@ -93,46 +73,13 @@ def convert_to_alumni(user_id):
     user_ref.update({'role': 'Alumni'})
     flash('User converted to Alumni successfully!', 'success')
     return redirect(url_for('admin_users'))
-
-
-
-
-
-@app.route('/admin/library', methods=['GET', 'POST'])
+@app.route('/admin/library')
 def admin_library():
-    if request.method == 'POST':
-        title = request.form['title']
-        author = request.form['author']
-        book_file = request.files['book_file']
-
-        if book_file:
-            cloudinary_response = cloudinary.uploader.upload(
-                book_file,
-               # resource_type="raw",
-                public_id=book_file.filename.rsplit('.', 1)[0],  # filename without extension
-                filename=book_file.filename,
-                use_filename=True,
-                unique_filename=False,
-                overwrite=True
-            )
-            book_url = cloudinary_response['secure_url']
-
-            db.collection('library').add({
-                'title': title,
-                'author': author,
-                'link': book_url
-            })
-
-            flash('Book uploaded successfully!', 'success')
-            return redirect(url_for('admin_library'))
-
-
-
-
-
-    # Retrieve all books from Firebase
-    books_ref = db.collection('library')
-    books = books_ref.stream()
+    books = []
+    for doc in db.collection('library').stream():
+        data = doc.to_dict()
+        data['id'] = doc.id
+        books.append(data)
     return render_template('admin_library.html', books=books)
 
 
@@ -155,8 +102,6 @@ def delete_book(book_id):
     db.collection('library').document(book_id).delete()
     flash("Book deleted successfully!", "success")
     return redirect(url_for('admin_library'))
- 
- 
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -164,10 +109,13 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        if email == 'admin@gmail.com' and password == '123':
+
+        # Admin login check
+        if email == "admin@gmail.com" and password == "123":
             return redirect(url_for('admin_home'))
 
-        api_key = os.getenv("FIREBASE_API_KEY")  
+        # Firebase Authentication
+        api_key = os.getenv("FIREBASE_API_KEY")
         url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={api_key}"
 
         payload = {
@@ -187,12 +135,8 @@ def login():
         else:
             error_msg = response.json().get("error", {}).get("message", "Login failed.")
             flash(f"Error: {error_msg}", "danger")
-            return render_template('login.html')
 
     return render_template('login.html')
-
-
-
 
 
 @app.route('/about_ise', methods=['GET', 'POST'])
@@ -211,7 +155,6 @@ def student_home():
         else:
             return redirect(url_for('login'))
     return redirect(url_for('login'))
-
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -297,20 +240,22 @@ def update_profile():
         'github': request.form.get('github')
     }
 
-    file = request.files['profile_pic']
-    if file:
-     upload_result = cloudinary.uploader.upload(file)
-     profile_pic_url = upload_result['secure_url']
-     updates['profile_pic_url'] = profile_pic_url
+    # Uploadcare profile picture URL
+    profile_pic_url = request.form.get('profile_pic_url')
+    if profile_pic_url:
+        updates['profile_pic_url'] = profile_pic_url
 
     user_ref.update(updates)
 
     flash("Profile updated successfully!", "success")
     return redirect(url_for('student_home'))
 
+
+
+
 @app.route('/logout', methods=['POST'])
 def logout():
-    session.pop('user_id', None)
+    session.pop('user_id', None)  # Remove user ID from session
     flash("You have been logged out.", "info")
     return redirect(url_for('login'))
 

@@ -92,9 +92,10 @@
         <label for="password">Change Password</label>
         <input type="password" id="password" name="password" placeholder="Enter new password">
 
-        <input type="hidden" role="uploadcare-uploader" name="profile_pic_url" data-clearable />
+        <label for="profile_pic">Profile Picture</label>
+        <input type="file" name="profile_pic" id="profile_pic" />
 
-
+        <input type="hidden" name="profile_pic_url" id="profile_pic_url" />
 
         <label for="internship">Internship Details</label>
         <input type="text" id="internship" name="internship" value="{{ user.internship }}">
@@ -120,9 +121,19 @@
         <button type="submit">Save Changes</button>
     </form>
 </div>
+
+<!-- Initialize Uploadcare Widget -->
 <script>
     UPLOADCARE_PUBLIC_KEY = "{{ uploadcare_key }}";
-  </script>
+
+    // Initialize Uploadcare widget for profile picture input
+    document.getElementById('profile_pic').addEventListener('change', function() {
+        var widget = uploadcare.Widget(document.getElementById('profile_pic'));
+        widget.onUploadComplete(function(info) {
+            document.getElementById('profile_pic_url').value = info.cdn_url; // Store the file URL in the hidden field
+        });
+    });
+</script>
 
 <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
 

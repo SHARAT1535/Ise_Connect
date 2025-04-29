@@ -1,0 +1,30 @@
+<h2>All Registered Users</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role or 'Student' }}</td>
+      <td>
+        {% if user.role != 'Alumni' %}
+        <form method="POST" action="{{ url_for('convert_to_alumni', user_id=user.uid) }}">
+          <button type="submit">Convert to Alumni</button>
+        </form>
+        {% else %}
+        Already Alumni
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
