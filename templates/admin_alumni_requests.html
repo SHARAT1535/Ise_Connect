@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Alumni Requests</title>
+</head>
+<body>
+    <h1>Pending Alumni Requests</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.name }}</td>
+                <td>{{ request.email }}</td>
+                <td>{{ request.alumni_request_status }}</td>
+                <td>
+                    <!-- Approve/Reject buttons -->
+                    <form action="{{ url_for('approve_request', user_id=request.id) }}" method="POST" style="display:inline;">
+                        <button type="submit">Approve</button>
+                    </form>
+                    <form action="{{ url_for('reject_request', user_id=request.id) }}" method="POST" style="display:inline;">
+                        <button type="submit">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

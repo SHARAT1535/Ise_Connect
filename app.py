@@ -62,10 +62,103 @@ if encoded_key:
     db = firestore.client()
 else:
     raise ValueError("FIREBASE_SERVICE_ACCOUNT_BASE64 not found in .env file")
+""" 
+@app.route('/')
+def hello():
+    if 'user_id' in session:
+        student_info = session.get('student')
+        return render_template('index.html', student_info=student_info)
+    return render_template('index.html')
+
+"""
 
 @app.route('/')
 def hello():
-    return render_template('index.html')
+    student_info = session.get('student')
+    return render_template('index.html', student_info=student_info)
+
+
+@app.route('/alumni')
+def alumni_page():
+    db = firestore.client()
+    users_ref = db.collection('user_data')
+    alumni_query = users_ref.where('role', '==', 'Alumni')
+    alumni_docs = alumni_query.stream()
+    alumni_list = []
+    for doc in alumni_docs:
+        data = doc.to_dict()
+        alumni_list.append({
+            'name': data.get('name', 'N/A'),
+            'working_at': data.get('working_at', 'N/A'),
+            'experience': data.get('experience', 'N/A'),
+            'about_me': data.get('about_me', ''),
+            'profile_pic_url': data.get('profile_pic_url')
+        })
+
+    return render_template('alumni.html', alumni_list=alumni_list)
+
+
+
+
+
+@app.route('/request_alumni', methods=['POST'])
+def request_alumni():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    
+    user_id = current_user.id  # Assuming current_user holds the authenticated user's info
+    
+    # Update the alumni_request_status to 'pending'
+    db.collection('user_data').document(user_id).update({
+        'alumni_request_status': 'pending'
+    })
+    
+    flash("Your alumni request has been submitted and is pending approval.", "success")
+    return redirect(url_for('student_home'))  # Or wherever you want to redirect after the request
+
+@app.route('/admin/alumni_requests')
+def view_alumni_requests():
+    if current_user.role != 'admin':
+        return redirect(url_for('index'))  # Ensure only admin can access this page
+    
+    # Fetch all students with pending alumni requests
+    pending_requests = db.collection('user_data').where('alumni_request_status', '==', 'pending').stream()
+    
+    # Convert query to a list of alumni request details
+    requests = [request.to_dict() for request in pending_requests]
+    
+    return render_template('admin_alumni_requests.html', requests=requests)
+
+
+@app.route('/admin/approve_request/<user_id>', methods=['POST'])
+def approve_request(user_id):
+    if current_user.role != 'admin':
+        return redirect(url_for('index'))  # Ensure only admin can access this route
+    
+    # Update the alumni_request_status to 'approved'
+    db.collection('user_data').document(user_id).update({
+        'alumni_request_status': 'approved'
+    })
+    
+    flash("Alumni request has been approved.", "success")
+    return redirect(url_for('view_alumni_requests'))
+
+@app.route('/admin/reject_request/<user_id>', methods=['POST'])
+def reject_request(user_id):
+    if current_user.role != 'admin':
+        return redirect(url_for('index'))  # Ensure only admin can access this route
+    
+    # Update the alumni_request_status to 'rejected'
+    db.collection('user_data').document(user_id).update({
+        'alumni_request_status': 'rejected'
+    })
+    
+    flash("Alumni request has been rejected.", "danger")
+    return redirect(url_for('view_alumni_requests'))
+
+
+
+
 
 
 
@@ -156,14 +249,17 @@ def delete_book(book_id):
     flash("Book deleted successfully!", "success")
     return redirect(url_for('admin_library'))
  
- 
 
+
+
+ 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+
         if email == 'admin@gmail.com' and password == '123':
             return redirect(url_for('admin_home'))
 
@@ -182,14 +278,23 @@ def login():
             user_data = response.json()
             session['user_id'] = user_data['localId']
             session['email'] = user_data['email']
+
+            # Get extra user info from Firestore
+            user_doc = db.collection('user_data').document(user_data['localId']).get()
+            if user_doc.exists:
+                session['student'] = user_doc.to_dict()
+
             flash("Login successful!", "success")
-            return redirect(url_for('student_home'))
+            return redirect('/')  # Redirect to home page
         else:
             error_msg = response.json().get("error", {}).get("message", "Login failed.")
             flash(f"Error: {error_msg}", "danger")
             return render_template('login.html')
 
     return render_template('login.html')
+
+
+
 
 
 

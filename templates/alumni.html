@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alumni List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .alumni-card {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .alumni-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ccc;
+    }
+
+    .alumni-info {
+      flex: 1;
+    }
+
+    .alumni-info h3 {
+      margin: 0 0 10px;
+      color: #333;
+    }
+
+    .alumni-info p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .chat-btn {
+      padding: 10px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .chat-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #888;
+      margin-top: 50px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Our Department Alumni</h1>
+
+    {% if alumni_list %}
+      {% for alumni in alumni_list %}
+      <div class="alumni-card">
+        {% if alumni.profile_pic_url %}
+          <img src="{{ alumni.profile_pic_url }}" alt="Profile Picture" class="alumni-image" />
+        {% else %}
+          <img src="/static/default-profile.png" alt="No Picture" class="alumni-image" />
+        {% endif %}
+        
+        <div class="alumni-info">
+          <h3>{{ alumni.name }}</h3>
+          <p><strong>Working At:</strong> {{ alumni.working_at }}</p>
+          <p><strong>Experience:</strong> {{ alumni.experience }}</p>
+          <p><strong>About Me:</strong> {{ alumni.about_me }}</p>
+        </div>
+        
+        <button class="chat-btn">Chat</button>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-data">No alumni records found.</div>
+    {% endif %}
+  </div>
+</body>
+</html>
