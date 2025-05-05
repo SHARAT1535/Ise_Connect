@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat</title>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #chat-window {
+      border: 1px solid #ccc;
+      height: 300px;
+      overflow-y: scroll;
+      padding: 10px;
+      background-color: white;
+    }
+
+    #message-input {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    #send-btn {
+      padding: 10px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #send-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .message .sender {
+      font-weight: bold;
+    }
+
+    .message .content {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Chat with Alumni</h2>
+  <div id="chat-window"></div>
+  <input id="message-input" placeholder="Type a message..." />
+  <button id="send-btn" onclick="sendMessage()">Send</button>
+
+  <script>
+    const currentUID = "{{ current_uid }}";  // User's UID
+    const otherUID = "{{ other_uid }}";      // Alumni's UID
+    const chatID = [currentUID, otherUID].sort().join("_");
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const chatWindow = document.getElementById("chat-window");
+
+    // Real-time message listener
+    db.collection("chats").doc(chatID).collection("messages")
+      .orderBy("timestamp")
+      .onSnapshot(snapshot => {
+        chatWindow.innerHTML = "";  // Clear chat window
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const msg = document.createElement("div");
+          msg.classList.add("message");
+
+          // Display message
+          const sender = data.sender_id === currentUID ? "You" : "Them";
+          const messageContent = data.message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          msg.innerHTML = `<span class="sender">${sender}:</span><span class="content">${messageContent}</span>`;
+
+          chatWindow.appendChild(msg);
+        });
+        // Scroll to the bottom of the chat window
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      });
+
+    // Send a message
+    function sendMessage() {
+      const input = document.getElementById("message-input");
+      const message = input.value.trim();
+      if (message === "") return;
+
+      db.collection("chats").doc(chatID).collection("messages").add({
+        sender_id: currentUID,
+        receiver_id: otherUID,
+        message: message,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      input.value = "";  // Clear the input field
+    }
+  </script>
+</body>
+</html>

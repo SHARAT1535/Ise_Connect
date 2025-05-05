@@ -58,6 +58,8 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .chat-btn:hover {
@@ -84,15 +86,15 @@
         {% else %}
           <img src="/static/default-profile.png" alt="No Picture" class="alumni-image" />
         {% endif %}
-        
+
         <div class="alumni-info">
           <h3>{{ alumni.name }}</h3>
           <p><strong>Working At:</strong> {{ alumni.working_at }}</p>
           <p><strong>Experience:</strong> {{ alumni.experience }}</p>
           <p><strong>About Me:</strong> {{ alumni.about_me }}</p>
         </div>
-        
-        <button class="chat-btn">Chat</button>
+        <a href="{{ url_for('chat', other_uid=alumni.uid) }}" class="chat-btn">Chat</a>
+
       </div>
       {% endfor %}
     {% else %}

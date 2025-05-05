@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Faculty</title>
+  <style>
+    body {
+      background-color: #f8e8e8;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .overview, .info {
+      margin-bottom: 20px;
+    }
+
+    .faculty-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; /* Hide overflowing cards */
+      max-width: 100%;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .faculty-wrapper {
+      display: flex;
+      transition: transform 0.3s ease-in-out;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .faculty-wrapper::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    .faculty-member {
+      text-align: center;
+      margin: 0 10px;
+      min-width: 200px;
+      flex-shrink: 0;
+    }
+
+    .faculty-member img {
+      width: 150px;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .faculty-position {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .arrow-button {
+      cursor: pointer;
+      font-size: 28px;
+      background-color: #fff;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      user-select: none;
+      z-index: 1;
+    }
+
+    .arrow-left,
+    .arrow-right {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .arrow-left {
+      left: 0;
+    }
+
+    .arrow-right {
+      right: 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #f2dede;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Department of Information Science & Engineering</h1>
+
+  <div class="overview">
+    <h2>Overview:</h2>
+    <p>The department of Information Science and Engineering, established in the year 2000 with an initial intake of 30, offers an undergraduate course in engineering (B.E. in Information Science and Engineering). Now, the intake is enhanced to 60 students. The department is recognized as a research center by Visvesvaraya Technological University, Belagavi. The department is accredited twice by the National Board of Accreditation.</p>
+  </div>
+
+  <div class="info">
+    <h2>Details</h2>
+    <p><strong>Year of Establishment:</strong> 2000</p>
+    <p><strong>Head of Department:</strong> Dr. Jagadeesh Pujari</p>
+    <p><strong>NBA Accreditation Status:</strong> Academic Years 2020-2021, 2021-2022, 2022-2023. Further accredited for Academic Years 2022-2023, 2024-2025 and 2025-2026.</p>
+    <p><strong>Current Intake:</strong> 60</p>
+    <p><strong>Phone Number:</strong> 9480750607</p>
+  </div>
+
+  
+  <div class="footer">
+    &copy; 2023 Department of Information Science & Engineering
+  </div>
+
+  <h1>Faculty</h1>
+
+  <div class="faculty-container">
+    <span class="arrow-button arrow-left" onclick="scrollFaculty(-1)">&lt;</span>
+
+    <div class="faculty-wrapper" id="facultyWrapper">
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/jagadeesh-pujari.jpg" alt="Dr. Sachidanand S. Joshi">
+        <h3>Dr. Jagadeesh Pujari </h3>
+        <p class="faculty-position">Head of the Department</p>
+      </div>
+
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/pushpalata-nikkam.jpg" alt="Dr. Pushpalatha S. Nikkam">
+        <h3>Dr. Pushpalatha S. Nikkam </h3>
+        <p class="faculty-position">Senior Lecturer</p>
+      </div>
+
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/varsha-jadhav.jpg" alt="Prof. Varsha S Jadhav">
+        <h3>Prof. Varsha S Jadhav</h3>
+        <p class="faculty-position">Assistant Professor</p>
+      </div>
+
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/deepa-bendigeri.jpg" alt="Dr. Deepa Bendigeri">
+        <h3> Dr. Deepa Bendigeri</h3>
+        <p class="faculty-position">Assistant Professor</p>
+      </div>
+
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/sachidananda-joshi.jpg" alt="Dr. Sachidanand S. Joshi">
+        <h3> Dr. Sachidanand S. Joshi</h3>
+        <p class="faculty-position">Assistant Professor</p>
+      </div>
+
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/anita-dixit.jpg" alt="Dr. Anita Dixit">
+        <h3>Dr. Anita Dixit</h3>
+        <p class="faculty-position">Assistant Professor</p>
+      </div>
+
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/arati-nayak.jpg" alt="Prof. Arati S. Nayak">
+        <h3>Prof. Arati S. Nayak</h3>
+        <p class="faculty-position">Assistant Professor</p>
+      </div>
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/rajashekarappa.jpg" alt="Dr. Rajashekarappa">
+        <h3>Dr. Rajashekarappa</h3>
+        <p class="faculty-position">Assistant Professor</p>
+      </div>
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/pratibha-badiger.jpg" alt="Prof. Pratibha Badiger">
+        <h3>Prof. Pratibha Badiger</h3>
+        <p class="faculty-position">Assistant Professor</p>
+      </div>
+      <div class="faculty-member">
+        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/tanweer-ahmed.jpg" alt="Prof. Tanweer Ahmed">
+        <h3>Prof. Tanweer Ahmed</h3>
+        <p class="faculty-position">Senior Lecturer</p>
+      </div>
+     
+      <!-- Add more faculty members as needed -->
+    </div>
+
+    <span class="arrow-button arrow-right" onclick="scrollFaculty(1)">&gt;</span>
+  </div>
+</div>
+
+<script>
+  function scrollFaculty(direction) {
+    const wrapper = document.getElementById("facultyWrapper");
+    console.log("hi");
+    wrapper.scrollBy({
+      left: direction * 220,
+      behavior: "smooth"
+    });
+  }
+</script>
+
+</body>
+</html>

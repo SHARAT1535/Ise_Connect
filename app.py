@@ -78,14 +78,22 @@ def hello():
     return render_template('index.html', student_info=student_info)
 
 
+from flask import session
+
 @app.route('/alumni')
 def alumni_page():
     db = firestore.client()
     users_ref = db.collection('user_data')
+
+    current_uid = session.get('user_id')  # Correct key here
+
     alumni_query = users_ref.where('role', '==', 'Alumni')
     alumni_docs = alumni_query.stream()
+
     alumni_list = []
     for doc in alumni_docs:
+        if doc.id == current_uid:
+            continue  # Exclude the currently signed-in user
         data = doc.to_dict()
         alumni_list.append({
             'name': data.get('name', 'N/A'),
@@ -96,6 +104,41 @@ def alumni_page():
         })
 
     return render_template('alumni.html', alumni_list=alumni_list)
+
+
+
+
+
+@app.route('/alumni')
+def alumni_list():
+    alumni_docs = db.collection('users').where('role', '==', 'alumni').stream()
+    alumni_list = []
+    for doc in alumni_docs:
+        data = doc.to_dict()
+        data['uid'] = doc.id 
+        alumni_list.append(data)
+    
+    return render_template('alumni.html', alumni_list=alumni_list)
+
+
+
+@app.route('/chat/<other_uid>', methods=['GET'])
+def chat(other_uid):
+    current_uid = session.get('user_id')
+    if current_uid:
+        return render_template('chat.html', current_uid=current_uid, other_uid=other_uid)
+    else:
+        return redirect(url_for('login'))  # Redirect to login if not logged in
+
+
+def send_message(current_uid, other_uid, message):
+    chat_id = "_".join(sorted([current_uid, other_uid]))
+    db.collection("chats").doc(chat_id).collection("messages").add({
+        "sender_id": current_uid,
+        "receiver_id": other_uid,
+        "message": message,
+        "timestamp": firestore.SERVER_TIMESTAMP
+    })
 
 
 
@@ -169,6 +212,14 @@ def admin_home():
 @app.route('/admin/gallery')
 def admin_gallery():
     return render_template('admin_gallary.html')
+
+@app.route('/staff')
+def staff():
+    return render_template('staff.html')
+
+@app.route('/student_portal')
+def student_portal():
+    return render_template('student_portal.html')
 
 
 @app.route('/admin/users')
@@ -290,7 +341,9 @@ def login():
             error_msg = response.json().get("error", {}).get("message", "Login failed.")
             flash(f"Error: {error_msg}", "danger")
             return render_template('login.html')
+        
 
+    
     return render_template('login.html')
 
 
@@ -316,6 +369,10 @@ def student_home():
         else:
             return redirect(url_for('login'))
     return redirect(url_for('login'))
+
+
+
+
 
 
 @app.route('/signup', methods=['GET', 'POST'])

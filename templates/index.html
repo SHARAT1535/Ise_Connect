@@ -1,80 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SDMCET Navbar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISE Connect - SDMCET</title>
   <style>
-    body {
+    /* Reset and base styles */
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #fff;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Navbar Styles */
+    header {
+      border-bottom: 2px solid #e5e7eb;
       background-color: #fff;
     }
 
-    .navbar {
-      padding: 10px 20px;
-      border-bottom: 2px solid #ddd;
-      position: relative;
+    .navbar-container {
+      padding: 0.75rem 1rem;
+    }
+
+    .navbar-content {
+      display: flex;
+      flex-direction: column;
     }
 
     .logo-section {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 1rem;
       flex-wrap: wrap;
     }
 
     .logo {
-      width: 90px;
+      width: 5rem;
       height: auto;
     }
 
     .college-text h1 {
-      font-size: 16px;
+      font-size: 1rem;
+      font-weight: bold;
       color: #8B0000;
-      margin: 0;
-      line-height: 1.4;
       text-transform: uppercase;
+      line-height: 1.2;
     }
 
     .college-text p {
-      font-size: 12px;
-      margin: 2px 0;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
     }
 
-    .nav-links ul {
-      display: flex;
-      flex-wrap: wrap;
-      list-style: none;
-      padding: 10px 0 0;
-      margin: 0;
-      gap: 15px;
+    .menu-button {
+      margin-left: auto;
+      display: block;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
+    @media (min-width: 768px) {
+      .menu-button {
+        display: none;
+      }
 
-    .nav-links a:hover {
-      color: #8B0000;
-    }
-
-    .dropdown::after {
-      content: " ▼";
-      font-size: 10px;
-    }
-
-    .profile-info {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      .navbar-content {
+        flex-direction: row;
+        align-items: center;
+      }
     }
 
     .profile-info img {
@@ -85,33 +94,486 @@
       object-fit: cover;
     }
 
-    .welcome-text {
-      font-size: 14px;
-      font-weight: bold;
-      color: #333;
-      text-decoration: none;
-      cursor: pointer;
-      transition: color 0.3s;
+    .profile-info a:hover {
+      color: #8B0000;
     }
 
-    .welcome-text:hover {
+    .profile-pic {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 9999px;
+      border: 2px solid #4CAF50;
+      object-fit: cover;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+
+    nav.hidden {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      nav {
+        margin-left: auto;
+        margin-top: 0;
+      }
+
+      nav.hidden {
+        display: block;
+      }
+    }
+
+    nav ul {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      list-style: none;
+    }
+
+    @media (min-width: 768px) {
+      nav ul {
+        flex-direction: row;
+        gap: 1.5rem;
+      }
+    }
+
+    nav a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+    }
+
+    nav a:hover {
       color: #8B0000;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(to right, #EBF4FF, #F9FAFB);
+      padding: 4rem 1rem 6rem 1rem;
+    }
+
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-content {
+        text-align: left;
+      }
+    }
+
+    .hero-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title {
+        font-size: 2.25rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+    }
+
+    .hero-title span {
+      color: #8B0000;
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: #4B5563;
+      margin-bottom: 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-buttons {
+        flex-direction: row;
+      }
+    }
+
+    .btn {
+      display: inline-block;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: #8B0000;
+      color: white;
+      transition: background-color 0.2s;
+    }
+
+    .btn-primary:hover {
+      background-color: #660000;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid #8B0000;
+      color: #8B0000;
+    }
+
+    .btn-outline:hover {
+      background-color: #8B0000;
+      color: white;
+    }
+
+    .hero-image {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .hero-image {
+        display: block;
+      }
+
+      .hero-image img {
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+      }
+    }
+
+    /* Features Section */
+    .features {
+      padding: 4rem 1rem;
+      background-color: #fff;
+    }
+
+    .features-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #111827;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .feature-card {
+      background-color: #F9FAFB;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+      color: #8B0000;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+
+    .feature-description {
+      text-align: center;
+      color: #6B7280;
+    }
+
+    /* Stats Section */
+    .stats {
+      background-color: #8B0000;
+      color: white;
+      padding: 3rem 1rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat-item {
+      padding: 1rem 0;
+    }
+
+    .stat-number {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* News Section */
+    .news {
+      padding: 4rem 1rem;
+      background-color: #F9FAFB;
+    }
+
+    .news-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+
+    .news-subtitle {
+      text-align: center;
+      color: #6B7280;
+      margin-bottom: 2.5rem;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .news-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .news-card {
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+
+    .news-card:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .news-card-header {
+      padding: 1.25rem 1.25rem 0.5rem;
+    }
+
+    .news-card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .news-card-date {
+      font-size: 0.75rem;
+      color: #6B7280;
+    }
+
+    .news-card-content {
+      padding: 0.5rem 1.25rem 1.25rem;
+    }
+
+    .news-card-text {
+      font-size: 0.875rem;
+      color: #4B5563;
+      margin-bottom: 1rem;
+    }
+
+    .news-card-link {
+      color: #8B0000;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .news-card-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #F9FAFB;
+      padding: 3rem 1rem 1.5rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .footer-section h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-section p {
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.875rem;
+      color: #4B5563;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #8B0000;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      background-color: #4B5563;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+
+    .social-icon:hover {
+      background-color: #8B0000;
+    }
+
+    .footer-copyright {
+      border-top: 1px solid #E5E7EB;
+      padding-top: 1rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6B7280;
     }
   </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo-section">
-      <img src="/static/logo.png" alt="SDMCET Logo" class="logo" />
-      <div class="college-text">
-        <h1>SHRI DHARMASTHALA MANJUNATHESHWARA<br>COLLEGE OF ENGINEERING & TECHNOLOGY.</h1>
-        <p>(An autonomous college under VTU, Belagavi & Approved by AICTE, New Delhi)</p>
-        <p><strong>ACCREDITED BY NBA and NAAC</strong> with A grade</p>
-        <p><strong>CET CODE:</strong> E034 | <strong>COMED-K CODE:</strong> E117</p>
-      </div>
-    </div>
+  <!-- Navbar -->
+  <header>
+    <div class="container navbar-container">
+      <div class="navbar-content">
+        <div class="logo-section">
+          <img src="data:image/jpeg;base64,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" alt="SDMCET Logo" class="logo">
+          <div class="college-text">
+            <h1>SHRI DHARMASTHALA MANJUNATHESHWARA<br>COLLEGE OF ENGINEERING & TECHNOLOGY.</h1>
+            <p>(An autonomous college under VTU, Belagavi & Approved by AICTE, New Delhi)</p>
+            <p><strong>ACCREDITED BY NBA and NAAC</strong> with A grade</p>
+            <p><strong>CET CODE:</strong> E034 | <strong>COMED-K CODE:</strong> E117</p>
+          </div>
+          
+          <button class="menu-button" onclick="toggleMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
 
-    {% if student_info %}
+        <!-- Profile Info -->
+        
+
+        <!-- Navigation -->
+        <nav class="hidden" id="navigation">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="{{ url_for('about_ise') }}">About ISE</a></li>
+            <li><a href="#">Academics</a></li>
+            <li><a href="{{ url_for('alumni_page') }}">ALUMNI</a></li>
+            <li><a href="#">Placement</a></li>
+            <li><a href="{{url_for('staff')}}">Staff</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Gallery</a></li>
+            {% if not student_info %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+            {% if student_info %}
     <div class="profile-info">
       <a href="{{ url_for('student_home') }}" class="welcome-text">Hi, {{ student_info.name }}</a>
       {% if student_info.profile_pic_url %}
@@ -119,22 +581,232 @@
       {% endif %}
     </div>
     {% endif %}
-
-    <nav class="nav-links">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="{{ url_for('about_ise') }}">About ISE</a></li>
-        <li><a href="#">Academics</a></li>
-        <li><a href="{{ url_for('alumni_page') }}">ALUMNI</a></li>
-        <li><a href="#">Placement</a></li>
-        <li><a href="#">Facilities</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Gallery</a></li>
-        {% if not student_info %}
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        {% endif %}
-      </ul>
-    </nav>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-container">
+          <div class="hero-content">
+            <h1 class="hero-title">Welcome to <span>ISE Connect</span></h1>
+            <p class="hero-description">
+              Connecting students, faculty, and alumni of the Information Science & Engineering Department
+              at SDMCET to foster collaboration and innovation.
+            </p>
+            <div class="hero-buttons">
+              <a href="{{url_for('about_ise')}}" class="btn btn-primary">Explore Department</a>
+              <a href="{{url_for('student_portal')}}" class="btn btn-outline">Student Portal</a>
+            </div>
+          </div>
+          <div class="hero-image">
+            <img src="https://sdmcet.ac.in/wp-content/uploads/2022/04/SDMCET-college-dharwad-small.jpg" alt="Students working on computers">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <h2 class="features-title">Why Choose ISE at SDMCET?</h2>
+        
+        <div class="features-grid">
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Academic Excellence</h3>
+            <p class="feature-description">Rigorous curriculum designed to prepare students for the evolving field of Information Science & Engineering.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="feature-title">Strong Alumni Network</h3>
+            <p class="feature-description">Connect with successful graduates working in top technology companies worldwide.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="7"></circle>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+              </svg>
+            </div>
+            <h3 class="feature-title">Accredited Program</h3>
+            <p class="feature-description">NBA accredited program ensuring high-quality education and industry-relevant skills.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="feature-title">Modern Infrastructure</h3>
+            <p class="feature-description">State-of-the-art laboratories and classrooms equipped with the latest technology.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Students</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Faculty Members</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">Placement Rate</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Alumni Network</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="news">
+      <div class="container">
+        <h2 class="news-title">Latest News</h2>
+        <p class="news-subtitle">Stay updated with the latest happenings in our department</p>
+        
+        <div class="news-grid">
+          <!-- News Item 1 -->
+          <div class="news-card">
+            <div class="news-card-header">
+              <h3 class="news-card-title">ISE Department Hosts Technical Symposium</h3>
+              <p class="news-card-date">May 3, 2025</p>
+            </div>
+            <div class="news-card-content">
+              <p class="news-card-text">The Information Science & Engineering department successfully organized a two-day technical symposium featuring industry experts and alumni.</p>
+              <a href="#" class="news-card-link">Read more</a>
+            </div>
+          </div>
+          
+          <!-- NewsItem 2 -->
+          <div class="news-card">
+            <div class="news-card-header">
+              <h3 class="news-card-title">Students Win National Hackathon</h3>
+              <p class="news-card-date">April 28, 2025</p>
+            </div>
+            <div class="news-card-content">
+              <p class="news-card-text">A team of ISE students secured first place in the national coding challenge held at IIT Bombay.</p>
+              <a href="#" class="news-card-link">Read more</a>
+            </div>
+          </div>
+          
+          <!-- News Item 3 -->
+          <div class="news-card">
+            <div class="news-card-header">
+              <h3 class="news-card-title">New Research Lab Inaugurated</h3>
+              <p class="news-card-date">April 15, 2025</p>
+            </div>
+            <div class="news-card-content">
+              <p class="news-card-text">State-of-the-art AI and Machine Learning research laboratory inaugurated by the Hon. Minister of Education.</p>
+              <a href="#" class="news-card-link">Read more</a>
+            </div>
+          </div>
+          
+          <!-- News Item 4 -->
+          <div class="news-card">
+            <div class="news-card-header">
+              <h3 class="news-card-title">Industry Partnership Announcement</h3>
+              <p class="news-card-date">April 10, 2025</p>
+            </div>
+            <div class="news-card-content">
+              <p class="news-card-text">ISE department signs MOU with leading technology company to enhance industry exposure for students.</p>
+              <a href="#" class="news-card-link">Read more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>SDMCET - Department of ISE<br>Dharwad, Karnataka 580002</p>
+          <p><strong>Phone:</strong> +91 123 456 7890</p>
+          <p><strong>Email:</strong> ise@sdmcet.ac.in</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="{{ url_for('about_ise') }}">About ISE</a></li>
+              <li><a href="#">Academics</a></li>
+              <li><a href="{{ url_for('alumni_page') }}">ALUMNI</a></li>
+              <li><a href="#">Placement</a></li>
+              <li><a href="#">Facilities</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Gallery</a></li>
+              {% if not student_info %}
+              <li><a href="{{ url_for('login') }}">Login</a></li>
+              {% endif %}
+            </ul>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Connect With Us</h3>
+          <div class="social-icons">
+            <a href="#" class="social-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
+            </a>
+            <a href="#" class="social-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"></path></svg>
+            </a>
+            <a href="#" class="social-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+            </a>
+            <a href="#" class="social-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-copyright">
+        <p>© <script>document.write(new Date().getFullYear())</script> ISE Connect - SDMCET. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navigation');
+      nav.classList.toggle('hidden');
+    }
+  </script>
 </body>
 </html>
