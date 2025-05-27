@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Openings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .job-card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .job-card h3 {
+      margin: 0;
+      color: #007bff;
+    }
+
+    .job-card p {
+      margin: 5px 0;
+    }
+
+    .job-card a {
+      text-decoration: none;
+      color: #28a745;
+    }
+
+    .job-form {
+      margin: 40px 0;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .job-form input, .job-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .job-form button {
+      background: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Latest Job Openings</h2>
+
+    {% if user and user.role == 'Alumni' %}
+    <form method="POST" class="job-form">
+      <h3>Post a Job</h3>
+      <input type="text" name="title" placeholder="Job Title" required>
+      <input type="text" name="company" placeholder="Company Name" required>
+      <input type="text" name="location" placeholder="Location" required>
+      <textarea name="description" rows="4" placeholder="Job Description" required></textarea>
+      <input type="url" name="link" placeholder="Application Link (LinkedIn, etc.)" required>
+      <button type="submit">Post Job</button>
+    </form>
+    {% endif %}
+
+    {% for job in job_list %}
+    <div class="job-card">
+      <h3>{{ job.title }}</h3>
+      <p><strong>Company:</strong> {{ job.company }}</p>
+      <p><strong>Location:</strong> {{ job.location }}</p>
+      <p><strong>Description:</strong> {{ job.description }}</p>
+      <p><a href="{{ job.link }}" target="_blank">Apply Here</a></p>
+      <p><em>Posted by {{ job.posted_by }}</em></p>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

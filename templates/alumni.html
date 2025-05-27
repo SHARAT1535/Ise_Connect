@@ -3,103 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alumni List</title>
+  <title>Alumni & Jobs</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 20px;
-    }
+   body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e9ecef; /* Light gray background */
+  margin: 0;
+  padding: 0;
+}
 
-    .container {
-      max-width: 1000px;
-      margin: auto;
-    }
+.navbar {
+  background-color: #343a40; /* Dark gray */
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-    .alumni-card {
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+.navbar a {
+  color: #ffffff; /* White text */
+  text-decoration: none;
+  padding: 10px 15px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
 
-    .alumni-image {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #ccc;
-    }
+.navbar a:hover {
+  background-color: #495057; /* Darker gray on hover */
+  border-radius: 5px;
+}
 
-    .alumni-info {
-      flex: 1;
-    }
+.main-container {
+  display: flex;
+  padding: 20px;
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
 
-    .alumni-info h3 {
-      margin: 0 0 10px;
-      color: #333;
-    }
+.left-jobs, .right-alumni {
+  flex: 1;
+}
 
-    .alumni-info p {
-      margin: 5px 0;
-      color: #555;
-    }
+.job-card {
+  background: #ffffff; /* White background */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
 
-    .chat-btn {
-      padding: 10px 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-    }
+.job-card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+}
 
-    .chat-btn:hover {
-      background-color: #0056b3;
-    }
+.job-card h3 {
+  margin: 0;
+  color: #007bff; /* Blue color for job titles */
+}
 
-    .no-data {
-      text-align: center;
-      color: #888;
-      margin-top: 50px;
-      font-size: 18px;
-    }
+.job-card a {
+  color: #28a745; /* Green for links */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.alumni-card {
+  background-color: #ffffff; /* White background */
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.alumni-card:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.alumni-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff; /* Blue border for profile images */
+}
+
+.alumni-info h3 {
+  margin: 0 0 5px;
+  color: #343a40; /* Dark gray for alumni names */
+}
+
+.no-data {
+  color: #888;
+  text-align: center;
+  margin-top: 30px;
+  font-style: italic; /* Italic for no data message */
+}
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Our Department Alumni</h1>
 
-    {% if alumni_list %}
-      {% for alumni in alumni_list %}
-      <div class="alumni-card">
-        {% if alumni.profile_pic_url %}
-          <img src="{{ alumni.profile_pic_url }}" alt="Profile Picture" class="alumni-image" />
-        {% else %}
-          <img src="/static/default-profile.png" alt="No Picture" class="alumni-image" />
-        {% endif %}
+  <div class="navbar">
+    <a href="{{ url_for('hello') }}">Home</a>
+    <a href="{{ url_for('community_chat') }}">Community Chat</a>
+    <a href="{{ url_for('job_openings') }}">Job Openings</a>
+  </div>
 
-        <div class="alumni-info">
-          <h3>{{ alumni.name }}</h3>
-          <p><strong>Working At:</strong> {{ alumni.working_at }}</p>
-          <p><strong>Experience:</strong> {{ alumni.experience }}</p>
-          <p><strong>About Me:</strong> {{ alumni.about_me }}</p>
-        </div>
-        <a href="{{ url_for('chat', other_uid=alumni.uid) }}" class="chat-btn">Chat</a>
+  <div class="main-container">
+    <!-- Left Column: Jobs -->
+    <div class="left-jobs">
+      <h2>Job Openings by Alumni</h2>
+      
+        <form method="GET" action="{{ url_for('alumni_page') }}">
+  <input type="text" name="search" placeholder="Search jobs..." value="{{ search_query or '' }}" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 20px;">
+</form>
+      {% if job_list %}
+        {% for job in job_list %}
 
-      </div>
-      {% endfor %}
-    {% else %}
-      <div class="no-data">No alumni records found.</div>
-    {% endif %}
+
+          <div class="job-card">
+            <h3>{{ job.title }}</h3>
+            <p><strong>Company:</strong> {{ job.company }}</p>
+            <p><strong>Location:</strong> {{ job.location }}</p>
+            <p>{{ job.description }}</p>
+            <p><a href="{{ job.link }}" target="_blank">Apply Now</a></p>
+            <p><em>Posted by {{ job.posted_by }}</em></p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-data">No jobs posted yet.</p>
+      {% endif %}
+    </div>
+
+    <!-- Right Column: Alumni -->
+    <div class="right-alumni">
+      <h2>Our Department Alumni</h2>
+      {% if alumni_list %}
+        {% for alumni in alumni_list %}
+          <a href="{{ alumni.linkedin }}" target="_blank" class="alumni-card">
+            {% if alumni.profile_pic_url %}
+              <img src="{{ alumni.profile_pic_url }}" class="alumni-image" alt="Profile Picture">
+            {% else %}
+              <img src="/static/default-profile.png" class="alumni-image" alt="No Picture">
+            {% endif %}
+            <div class="alumni-info">
+              <h3>{{ alumni.name }}</h3>
+              <p><strong>Working At:</strong> {{ alumni.working_at }}</p>
+              <p><strong>Experience:</strong> {{ alumni.experience }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <p class="no-data">No alumni records found.</p>
+      {% endif %}
+    </div>
   </div>
 </body>
 </html>

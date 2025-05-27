@@ -1,30 +1,149 @@
-<h2>All Registered Users</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Registered Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for user in users %}
-    <tr>
-      <td>{{ user.name }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.role or 'Student' }}</td>
-      <td>
-        {% if user.role != 'Alumni' %}
-        <form method="POST" action="{{ url_for('convert_to_alumni', user_id=user.uid) }}">
-          <button type="submit">Convert to Alumni</button>
-        </form>
-        {% else %}
-        Already Alumni
-        {% endif %}
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+        h2 {
+            color: #333;
+        }
+
+        .search-form {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        input[type="text"],
+        select {
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        button {
+            padding: 7px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .download-button {
+    padding: 7px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.download-button:hover {
+    background-color: #45a049;
+}
+
+    </style>
+</head>
+<body>
+    <h2>All Registered Users</h2>
+
+    <form method="GET" action="{{ url_for('admin_users') }}" class="search-form">
+        <input type="text" name="query" placeholder="Search by name, USN, or email" value="{{ request.args.get('query', '') }}">
+        
+        <select name="passout_year">
+            <option value="">Pass-out Year</option>
+            {% for year in years %}
+            <option value="{{ year }}" {% if request.args.get('passout_year') == year %}selected{% endif %}>{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="text" name="working_at" placeholder="Working at" value="{{ request.args.get('working_at', '') }}">
+
+  <a href="{{ url_for('download_users', 
+    query=request.args.get('query', ''), 
+    passout_year=request.args.get('passout_year', ''), 
+    working_at=request.args.get('working_at', '')) }}" 
+    class="download-button">
+    Download Excel
+</a>
+
+
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Pass-out</th>
+                <th>Working At</th>
+                <th>Experience</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role or 'Student' }}</td>
+                <td>{{ user.passesout }}</td>
+                <td>{{ user.working_at or '-' }}</td>
+                <td>{{ user.experience or '-' }}</td>
+                <td>
+                    {% if user.role != 'Alumni' %}
+                    <form method="POST" action="{{ url_for('convert_to_alumni', user_id=user.uid) }}">
+                        <button type="submit">Convert to Alumni</button>
+                    </form>
+                    {% else %}
+                    Already Alumni
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

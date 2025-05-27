@@ -1,54 +1,421 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>About ISE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDMCET - About Us</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1, h3 {
-            text-align: center;
+            background-color: #f5f5f5;
             color: #333;
         }
-        p, ul {
-            line-height: 1.6;
-            color: #555;
+        
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #600000;
+        }
+        
+        .back-button:before {
+            content: "←";
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+
+            /* Header Styles */
+        header {
+        border-bottom: 2px solid #e5e7eb;
+        background-color: #fff;
+        }
+
+        .college-header {
+        display: flex;
+        align-items: center;
+        padding: 8px 15px;
+        }
+
+        .logo-section {
+        display: flex;
+        align-items: center;
+        gap: .90rem;
+        flex: 1;
+        }
+
+        .logo {
+        width: 70px;
+        height: auto;
+        }
+
+        .college-text {
+        margin-left: 15px;
+        }
+
+        .college-text h1 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #8B0000;
+        text-transform: uppercase;
+        line-height: 1.2;
+        }
+
+        .college-text p {
+        font-size: 0.75rem;
+        margin-top: 0.2rem;
+        color: #555;
+        }
+
+        .college-text h5 {
+        font-size: 0.6rem;
+        font-weight: bold;
+        color: #8B0000;
+        text-transform: uppercase;
+        }
+
+        .college-info {
+        font-size: 0.8rem;
+        color: #555;
+        max-width: 500px;
+        }
+
+        
+        .logo {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+        
+        nav {
+            background-color: #8B0000;
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .about-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            color: #8B0000;
+            border-bottom: 2px solid #B22222;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .col-left {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .col-right {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .feature-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #8B0000;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .feature-box h3 {
+            color: #8B0000;
+            margin-top: 0;
+        }
+        
+        .stats-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background-color: #FFE4E1;
+            border-radius: 8px;
+            padding: 20px;
+            width: 23%;
+            min-width: 200px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #8B0000;
+            margin: 10px 0;
+        }
+        
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 180px;
+            background-color: #ddd;
+        }
+        
+        footer {
+            background-color: #8B0000;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            border-bottom: 2px solid #FFE4E1;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .contact-info p {
+            margin: 5px 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .stat-item {
+                width: 45%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .stat-item {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>abcedfg the Department</h1>
-        <h3>Information Science & Engineering</h3>
-
-        <p>
-            The Department of Information Science and Engineering, established in the year 2000 with an initial intake of 30 students, offers an undergraduate course (B.E. in Information Science and Engineering). Currently, the intake is enhanced to 60 students.
-        </p>
-
-        <p>
-            The department is recognized as a research centre by Visvesvaraya Technological University (VTU), Belgaum, and has been accredited twice by the National Board of Accreditation (NBA).
-        </p>
-
-        <ul>
-            <li><strong>Year of Establishment:</strong> 2000</li>
-            <li><strong>Head of Department:</strong> Dr. Jagadeesh Pujari</li>
-            <li><strong>NBA Accreditation Status:</strong> 
-                Accredited for Academic Years 2020-2021, 2021-2022, 2022-2023, 
-                and further accredited for 2023-24, 2024-25, and 2025-26
-            </li>
-            <li><strong>Current Intake:</strong> 60 students</li>
-            <li><strong>Phone Number:</strong> 9480750607</li>
-        </ul>
+    <a href="{{url_for('hello')}}" class="back-button">Back</a>
+  <!-- Header with College Logo and Name -->
+  <header>
+    <div class="container college-header">
+      <div class="logo-section">
+        <img src="https://res.cloudinary.com/ddphttbaa/image/upload/v1748155544/sdm_logo_zcp7pt.png" alt="SDMgbCET Logo" class="logo">
+        <div class="college-text">
+          <h1>SHRI DHARMASTHALA MANJUNATHESHWARA COLLEGE OF ENGINEERING & TECHNOLOGY</h1>
+          <b><p>(An Autonomous Institute under Visvesvaraya Technological University, Belagavi and Approved by All India Council for Technical Education, New Delhi)</p>
+          <p>NAAC ACCREDITED WITH 'A' GRADE | NBA ACCREDITED PROGRAMS</p></b>
+          <h5>CET CODE: E041/UGCID=K-8117</h5>
+        </div>
+      </div>
     </div>
-</body>
-</html>
+  </header>
+    
+    <nav>
+       <ul>
+        <li><a href="{{ url_for('hello') }}">Home</a></li>
+        <li><a href="{{ url_for('about_ise') }}">About ISE</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="{{ url_for('placement') }}">Placement</a></li>
+        <li><a href="{{url_for('elibrary')}}">E-Library</a></li>
+        <li><a href="{{ url_for('alumni_page') }}">Alumini</a></li>
+        <li><a href="{{url_for('staff')}}">Faculty</a></li>
+        <li><a href="{{ url_for('gallery_page') }}">Gallery</a></li>
+        <li><a href="{{url_for('feedback')}}">Feedback</a></li>
+      </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="about-section">
+            <h2 class="section-title">About ISE</h2>
+            <div class="container">
+                <h3>Information Science & Engineering</h3>
+        
+                <p>
+                    The Department of Information Science and Engineering, established in the year 2000 with an initial intake of 30 students, offers an undergraduate course (B.E. in Information Science and Engineering). Currently, the intake is enhanced to 60 students.
+                </p>
+        
+                <p>
+                    The department is recognized as a research centre by Visvesvaraya Technological University (VTU), Belgaum, and has been accredited twice by the National Board of Accreditation (NBA).
+                </p>
+        
+                <ul>
+                    <li><strong>Year of Establishment:</strong> 2000</li>
+                    <li><strong>Head of Department:</strong> Dr. Jagadeesh Pujari</li>
+                    <li><strong>NBA Accreditation Status:</strong> 
+                        Accredited for Academic Years 2020-2021, 2021-2022, 2022-2023, 
+                        and further accredited for 2023-24, 2024-25, and 2025-26
+                    </li>
+                    <li><strong>Current Intake:</strong> 60 students</li>
+                    <li><strong>Phone Number:</strong> 9480750607</li>
+                </ul>
+            </div>
+        
+        </div>
+        
+        <div class="about-section">
+            <h2 class="section-title">Vision & Mission</h2>
+            
+            <div class="feature-box">
+                <h3>Vision</h3>
+                <p>To develop competent Information Technology Engineers having complete knowledge and skills in contemporary Information Technology and practices.</p>
+            </div>
+            
+            <div class="feature-box">
+                <h3>Mission</h3>
+                <ul>
+                    <li>To have contextually relevant Curricular.</li>
+                    <li>To promote effective Teaching Learning Practices supported by Modern Educational Tools and Techniques.</li>
+                    <li>To enhance Research Culture.</li>
+                    <li>To involve Industrial Expertise for connecting classroom content to real life situations.</li>
+                    <li>To inculcate Ethics and impart soft-skills leading to overall Personality Development.</li>
+            </div>
+        </div>
+        
+        
+        <div class="about-section">
+            <h2 class="section-title">Infrastructure & Facilities</h2>
+            
+            <p>The ISE department is located on the 2nd floor of the building:</p>
+            
+            <div class="flex-container">
+                <div class="col-left">
+                    <div class="feature-box">
+                        <h3>Academic Facilities</h3>
+                        <ul>
+                            <li>Well-equipped laboratories & workshops</li>
+                            <li>Smart classrooms</li>
+                            <li>Computer centers with high-speed internet</li>
+                            <li>Seminar halls </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-right">
+                    <div class="feature-box">
+                        <h3>Student Amenities</h3>
+                        <ul>
+                            <li>Wi-Fi Enabled Campus</li>
+                            <li>Drinking Water & Sanitation</li>
+                            <li>Notice Board & Digital Updates</li>
+                            <li>Cafeteria & food courts</li>
+                            <li>Banking & ATM facilities</li>
+                            <li>Career Guidance & Placement Cell</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="photo-gallery">
+                <div class="gallery-item">
+                    <img src="https://sdmcet.ac.in/wp-content/uploads/2022/04/SDMCET-college-dharwad-small.jpg" alt="SDMCET Campus" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwDo8jQBMb7fHe89CGPs3kzlZ2GvFcJcqJyw&s
+    " alt="Library" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://sdmcet.ac.in/wp-content/uploads/2022/05/cs-dept.jpg" alt="Lab" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp9J1JpGTgU8ydAgYcdvV2M7orqcVNsb_aoQ&s" alt="Sports Facilities" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    
+    <footer

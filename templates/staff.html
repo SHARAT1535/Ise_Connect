@@ -3,117 +3,556 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Faculty</title>
+  <title>Department of Information Science & Engineering - Faculty</title>
   <style>
-    body {
-      background-color: #f8e8e8;
-      font-family: Arial, sans-serif;
+    :root {
+      --primary-color: #8B0000;
+      --secondary-color: #f9f1f0;
+      --accent-color: #e58e26;
+      --text-color: #333;
+      --light-text: #555;
+      --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--secondary-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
     }
 
+    
+    .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #600000;
+        }
+        
+        .back-button:before {
+            content: "←";
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+
+          /* Header Styles */
+        header {
+        border-bottom: 2px solid #e5e7eb;
+        background-color: #ffffff; /* Changed to white */
+        }
+
+        .college-header {
+        display: flex;
+        align-items: center;
+        padding: 8px 15px;
+        }
+
+        .logo-section {
+        display: flex;
+        align-items: center;
+        gap: .90rem;
+        flex: 1;
+        }
+
+        .logo {
+        width: 70px;
+        height: auto;
+        }
+
+        .college-text {
+        margin-left: 15px;
+        }
+
+        .college-text h1 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #8B0000;
+        text-transform: uppercase;
+        line-height: 1.2;
+        }
+
+        .college-text p {
+        font-size: 0.75rem;
+        margin-top: 0.2rem;
+        color: #555;
+        }
+
+        .college-text h5 {
+        font-size: 0.6rem;
+        font-weight: bold;
+        color: #8B0000;
+        text-transform: uppercase;
+        }
+
+        .college-info {
+        font-size: 0.8rem;
+        color: #555;
+        max-width: 500px;
+        }
+
+        
+        .logo {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+        
+        nav {
+            background-color: #8B0000;
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
     .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 20px;
     }
 
-    h1, h2 {
+    header {
+      background-color: white; /* Changed from var(--primary-color) to white */
+      color: var(--text-color); /* Changed from white to text-color for better visibility on white */
+      padding: 20px 0;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
       text-align: center;
     }
 
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+
+    header h1 {
+      color: var(--primary-color); /* Changed from white to primary-color for better visibility on white */
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin: 25px 0 15px;
+      color: var(--primary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 60px;
+      background-color: var(--accent-color);
+    }
+
     .overview, .info {
-      margin-bottom: 20px;
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .overview p, .info p {
+      margin-bottom: 15px;
+    }
+
+    .info p:last-child {
+      margin-bottom: 0;
+    }
+
+    .faculty-section {
+      margin: 40px 0;
+    }
+
+    .faculty-title {
+      text-align: center;
+      margin-bottom: 30px;
     }
 
     .faculty-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden; /* Hide overflowing cards */
-      max-width: 100%;
-      margin-top: 20px;
       position: relative;
+      max-width: 100%;
+      margin: 0 auto;
     }
 
     .faculty-wrapper {
       display: flex;
-      transition: transform 0.3s ease-in-out;
+      gap: 20px;
       overflow-x: auto;
+      padding: 20px 10px;
       scroll-behavior: smooth;
-      scrollbar-width: none; /* Firefox */
+      scrollbar-width: thin;
     }
 
     .faculty-wrapper::-webkit-scrollbar {
-      display: none; /* Chrome/Safari */
+      height: 8px;
+    }
+
+    .faculty-wrapper::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .faculty-wrapper::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 10px;
     }
 
     .faculty-member {
-      text-align: center;
-      margin: 0 10px;
-      min-width: 200px;
+      width: 220px;
+      min-width: 220px;
       flex-shrink: 0;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .faculty-member img {
-      width: 150px;
-      height: auto;
-      border-radius: 5px;
+    .faculty-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .faculty-image {
+      position: relative;
+      height: 220px;
+      width: 220px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .faculty-image a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .faculty-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .faculty-member:hover .faculty-image img {
+      transform: scale(1.05);
+    }
+
+    /* Removed red overlay */
+    .faculty-overlay {
+      display: none;
+    }
+
+    .faculty-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .faculty-info h3 {
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+      color: var(--primary-color);
     }
 
     .faculty-position {
-      font-size: 14px;
-      color: #555;
+      font-size: 0.9rem;
+      color: var(--light-text);
+      font-style: italic;
     }
 
     .arrow-button {
-      cursor: pointer;
-      font-size: 28px;
-      background-color: #fff;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      user-select: none;
-      z-index: 1;
-    }
-
-    .arrow-left,
-    .arrow-right {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      z-index: 10;
+      transition: var(--transition);
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .arrow-button:hover {
+      background-color: var(--primary-color);
+      color: white;
     }
 
     .arrow-left {
-      left: 0;
+      left: -10px;
     }
 
     .arrow-right {
-      right: 0;
+      right: -10px;
     }
 
     .footer {
+      background-color: var(--primary-color);
+      color: white;
       text-align: center;
-      padding: 10px;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 25px;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 8px;
+      position: relative;
+      animation: modalopen 0.3s;
+    }
+
+    @keyframes modalopen {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .close-modal {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      transition: var(--transition);
+    }
+
+    .close-modal:hover {
+      color: var(--primary-color);
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .modal-image {
+      text-align: center;
+    }
+
+    .modal-image img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary-color);
+    }
+
+    .modal-info h3 {
+      color: var(--primary-color);
+      margin-bottom: 5px;
+      font-size: 1.5rem;
+    }
+
+    .modal-position {
+      font-style: italic;
+      color: var(--light-text);
+      margin-bottom: 15px;
+    }
+
+    .modal-contact {
       margin-top: 20px;
-      background-color: #f2dede;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .contact-button {
+      padding: 8px 15px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .contact-button:hover {
+      background-color: var(--accent-color);
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .faculty-wrapper {
+        gap: 15px;
+      }
+      
+      .faculty-member {
+        width: 180px;
+        min-width: 180px;
+      }
+      
+      .faculty-image {
+        height: 180px;
+        width: 180px;
+      }
+      
+      .arrow-button {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .modal-content {
+        width: 90%;
+        margin: 15% auto;
+      }
+    }
+
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .faculty-member {
+        width: 150px;
+        min-width: 150px;
+      }
+      
+      .faculty-image {
+        height: 150px;
+        width: 150px;
+      }
+      
+      .modal-body {
+        flex-direction: column;
+      }
+      
+      .modal-image img {
+        width: 120px;
+        height: 120px;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>Department of Information Science & Engineering</h1>
+  <a href="{{url_for('hello')}}" class="back-button">Back</a>
+  <!-- Header with College Logo and Name -->
+  <header>
+    <div class="container college-header">
+      <div class="logo-section">
+        <img src="https://res.cloudinary.com/ddphttbaa/image/upload/v1748155544/sdm_logo_zcp7pt.png" alt="SDMCET Logo" class="logo">
+        <div class="college-text">
+          <h1>SHRI DHARMASTHALA MANJUNATHESHWARA COLLEGE OF ENGINEERING & TECHNOLOGY</h1>
+          <b><p>(An Autonomous Institute under Visvesvaraya Technological University, Belagavi and Approved by All India Council for Technical Education, New Delhi)</p>
+          <p>NAAC ACCREDITED WITH 'A' GRADE | NBA ACCREDITED PROGRAMS</p></b>
+          <h5>CET CODE: E041/UGCID=K-8117</h5>
+        </div>
+      </div>
+    </div>
+  </header>
+    
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('hello') }}">Home</a></li>
+        <li><a href="{{ url_for('about_ise') }}">About ISE</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="{{ url_for('placement') }}">Placement</a></li>
+        <li><a href="{{url_for('elibrary')}}">E-Library</a></li>
+        <li><a href="{{ url_for('alumni_page') }}">Alumini</a></li>
+        <li><a href="{{url_for('staff')}}">Faculty</a></li>
+        <li><a href="{{ url_for('gallery_page') }}">Gallery</a></li>
+        <li><a href="{{url_for('feedback')}}">Feedback</a></li>
+      </ul>
+    </nav>
 
+
+<div class="container">
   <div class="overview">
-    <h2>Overview:</h2>
+    <h2>Overview</h2>
     <p>The department of Information Science and Engineering, established in the year 2000 with an initial intake of 30, offers an undergraduate course in engineering (B.E. in Information Science and Engineering). Now, the intake is enhanced to 60 students. The department is recognized as a research center by Visvesvaraya Technological University, Belagavi. The department is accredited twice by the National Board of Accreditation.</p>
   </div>
 
   <div class="info">
-    <h2>Details</h2>
+    <h2>Department Details</h2>
     <p><strong>Year of Establishment:</strong> 2000</p>
     <p><strong>Head of Department:</strong> Dr. Jagadeesh Pujari</p>
     <p><strong>NBA Accreditation Status:</strong> Academic Years 2020-2021, 2021-2022, 2022-2023. Further accredited for Academic Years 2022-2023, 2024-2025 and 2025-2026.</p>
@@ -121,87 +560,159 @@
     <p><strong>Phone Number:</strong> 9480750607</p>
   </div>
 
-  
-  <div class="footer">
-    &copy; 2023 Department of Information Science & Engineering
-  </div>
+  <div class="faculty-section">
+    <h1 class="faculty-title">Our Faculty</h1>
 
-  <h1>Faculty</h1>
+    <div class="faculty-container">
+      <div class="arrow-button arrow-left" onclick="scrollFaculty(-1)">&#8249;</div>
 
-  <div class="faculty-container">
-    <span class="arrow-button arrow-left" onclick="scrollFaculty(-1)">&lt;</span>
+      <div class="faculty-wrapper" id="facultyWrapper">
+        <!-- Faculty 1 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/259266" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/jagadeesh-pujari.jpg" alt="Dr. Jagadeesh Pujari">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Dr. Jagadeesh Pujari</h3>
+            <p class="faculty-position">Head of the Department</p>
+          </div>
+        </div>
 
-    <div class="faculty-wrapper" id="facultyWrapper">
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/jagadeesh-pujari.jpg" alt="Dr. Sachidanand S. Joshi">
-        <h3>Dr. Jagadeesh Pujari </h3>
-        <p class="faculty-position">Head of the Department</p>
+        <!-- Faculty 2 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/258667" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/pushpalata-nikkam.jpg" alt="Dr. Pushpalatha S. Nikkam">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Dr. Pushpalatha S. Nikkam</h3>
+            <p class="faculty-position">Assistant Professor</p>
+          </div>
+        </div>
+
+        <!-- Faculty 3 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/259926" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/varsha-jadhav.jpg" alt="Prof. Varsha S Jadhav">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Prof. Varsha S Jadhav</h3>
+            <p class="faculty-position">Assistant Professor</p>
+          </div>
+        </div>
+
+        <!-- Faculty 4 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/259273" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/deepa-bendigeri.jpg" alt="Dr. Deepa Bendigeri">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Dr. Deepa Bendigeri</h3>
+            <p class="faculty-position">Assistant Professor</p>
+          </div>
+        </div>
+
+        <!-- Faculty 5 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/258990" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/sachidananda-joshi.jpg" alt="Dr. Sachidanand S. Joshi">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Dr. Sachidanand S. Joshi</h3>
+            <p class="faculty-position">Assistant Professor</p>
+          </div>
+        </div>
+
+        <!-- Faculty 6 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/258612" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/anita-dixit.jpg" alt="Dr. Anita Dixit">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Dr. Anita Dixit</h3>
+            <p class="faculty-position">Assistant Professor</p>
+          </div>
+        </div>
+
+        <!-- Faculty 7 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/258669" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/arati-nayak.jpg" alt="Prof. Arati S. Nayak">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Prof. Arati S. Nayak</h3>
+            <p class="faculty-position">Assistant Professor</p>
+          </div>
+        </div>
+
+        <!-- Faculty 8 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/259086" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/rajashekarappa.jpg" alt="Dr. Rajashekarappa">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Dr. Rajashekarappa</h3>
+            <p class="faculty-position">Assistant Professor</p>
+          </div>
+        </div>
+
+        <!-- Faculty 9 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="#" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/pratibha-badiger.jpg" alt="Prof. Pratibha Badiger">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Prof. Pratibha Badiger</h3>
+            <p class="faculty-position">Assistant Professor</p>
+          </div>
+        </div>
+
+        <!-- Faculty 10 -->
+        <div class="faculty-member">
+          <div class="faculty-image">
+            <a href="https://sdmcet.irins.org/profile/259402" target="_blank">
+              <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/tanweer-ahmed.jpg" alt="Prof. Tanweer Ahmed">
+            </a>
+          </div>
+          <div class="faculty-info">
+            <h3>Prof. Tanweer Ahmed</h3>
+            <p class="faculty-position">Senior Lecturer</p>
+          </div>
+        </div>
       </div>
 
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/pushpalata-nikkam.jpg" alt="Dr. Pushpalatha S. Nikkam">
-        <h3>Dr. Pushpalatha S. Nikkam </h3>
-        <p class="faculty-position">Senior Lecturer</p>
-      </div>
-
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/varsha-jadhav.jpg" alt="Prof. Varsha S Jadhav">
-        <h3>Prof. Varsha S Jadhav</h3>
-        <p class="faculty-position">Assistant Professor</p>
-      </div>
-
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/deepa-bendigeri.jpg" alt="Dr. Deepa Bendigeri">
-        <h3> Dr. Deepa Bendigeri</h3>
-        <p class="faculty-position">Assistant Professor</p>
-      </div>
-
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/sachidananda-joshi.jpg" alt="Dr. Sachidanand S. Joshi">
-        <h3> Dr. Sachidanand S. Joshi</h3>
-        <p class="faculty-position">Assistant Professor</p>
-      </div>
-
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/anita-dixit.jpg" alt="Dr. Anita Dixit">
-        <h3>Dr. Anita Dixit</h3>
-        <p class="faculty-position">Assistant Professor</p>
-      </div>
-
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/arati-nayak.jpg" alt="Prof. Arati S. Nayak">
-        <h3>Prof. Arati S. Nayak</h3>
-        <p class="faculty-position">Assistant Professor</p>
-      </div>
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/rajashekarappa.jpg" alt="Dr. Rajashekarappa">
-        <h3>Dr. Rajashekarappa</h3>
-        <p class="faculty-position">Assistant Professor</p>
-      </div>
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/pratibha-badiger.jpg" alt="Prof. Pratibha Badiger">
-        <h3>Prof. Pratibha Badiger</h3>
-        <p class="faculty-position">Assistant Professor</p>
-      </div>
-      <div class="faculty-member">
-        <img src="https://sdmcet.ac.in/wp-content/themes/SDMCET-theme/img/faculty/ise-ug/tanweer-ahmed.jpg" alt="Prof. Tanweer Ahmed">
-        <h3>Prof. Tanweer Ahmed</h3>
-        <p class="faculty-position">Senior Lecturer</p>
-      </div>
-     
-      <!-- Add more faculty members as needed -->
+      <div class="arrow-button arrow-right" onclick="scrollFaculty(1)">&#8250;</div>
     </div>
-
-    <span class="arrow-button arrow-right" onclick="scrollFaculty(1)">&gt;</span>
   </div>
 </div>
+
+<footer class="footer">
+  <p>&copy; 2023 Department of Information Science & Engineering. All Rights Reserved.</p>
+</footer>
 
 <script>
   function scrollFaculty(direction) {
     const wrapper = document.getElementById("facultyWrapper");
-    console.log("hi");
+    const scrollAmount = direction * 250; // Adjust scroll amount as needed
     wrapper.scrollBy({
-      left: direction * 220,
+      left: scrollAmount,
       behavior: "smooth"
     });
   }

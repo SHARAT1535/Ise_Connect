@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Placements @ SDMCET</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.5;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .contact p {
+            margin: 5px 0;
+        }
+
+        .main-nav {
+            background-color: #f8f8f8;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 0.75rem 1rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+        }
+
+        nav a:hover {
+            color: #8B0000;
+        }
+
+        header {
+            border-bottom: 2px solid #e5e7eb;
+            background-color: #fff;
+        }
+
+        .college-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .logo {
+            width: 70px;
+            height: auto;
+        }
+
+        .college-text {
+            margin-left: 15px;
+        }
+
+        .college-text h1 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #8B0000;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .college-text p {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 40vh;
+            width: 80vw;
+        }
+
+        .placement-image-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .placement-image-container img {
+            max-width: 800px;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .placement-image-container img:hover {
+            transform: scale(1.03);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container college-header">
+            <div class="logo-section">
+                <img src="https://res.cloudinary.com/ddphttbaa/image/upload/v1748155544/sdm_logo_zcp7pt.png" alt="SDMCET Logo" class="logo" />
+                <div class="college-text">
+                    <h1>SHRI DHARMASTHALA MANJUNATHESHWARA</h1>
+                    <h1>COLLEGE OF ENGINEERING & TECHNOLOGY</h1>
+                    <b>
+                        <p>(An Autonomous Institute under Visvesvaraya Technological University, Belagavi)</p>
+                        <p>and Approved by All India Council for Technical Education, New Delhi)</p>
+                        <p>NAAC ACCREDITED WITH 'A' GRADE | NBA ACCREDITED PROGRAMS</p>
+                    </b>
+                    <h5>CET CODE: E041/UGCID=K-8117</h5>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container navbar-container">
+           <ul>
+        <li><a href="{{ url_for('hello') }}">Home</a></li>
+        <li><a href="{{ url_for('about_ise') }}">About ISE</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="{{ url_for('placement') }}">Placement</a></li>
+        <li><a href="{{url_for('elibrary')}}">E-Library</a></li>
+        <li><a href="{{ url_for('alumni_page') }}">Alumini</a></li>
+        <li><a href="{{url_for('staff')}}">Faculty</a></li>
+        <li><a href="{{ url_for('gallery_page') }}">Gallery</a></li>
+        <li><a href="{{url_for('feedback')}}">Feedback</a></li>
+      </ul>
+        </div>
+    </nav>
+
+    <div class="section">
+        <h1>Placements @ SDMCET</h1>
+        <p>At SDMCET, we believe that placement performance is one of the vital indicators of overall success of a professional institution. The TPO recognizes the fact that not all students are interested in placement and may have other career plans. But for those who are deserving and willing to walk the preparation path, we have a comprehensive plan that initiates the student towards a successful placement process as early as in the 4th semester, and supports them throughout onboarding.</p>
+    </div>
+
+    <div class="section contact">
+        <h2>Placement Officers Contact Information</h2>
+        <p><strong>Dr. Sunilkumar Honnungar</strong><br>
+        Associate Professor & Placement Officer<br>
+        Mobile: 81056 50888</p>
+
+        <p><strong>Prof. Shrikanth Shirakol</strong><br>
+        Assistant Professor & Deputy Placement Officer<br>
+        Mobile: 98860 59174</p>
+
+        <p>Email: sdmcet.taps@gmail.com</p>
+    </div>
+
+    <div class="section">
+        <h2>Solid Placement Record</h2>
+        <p>Internships are increasingly being offered to selected students. In collaboration with CIII and departments, students undergo training in various modules relevant to training and placement. These include aptitude and communication skills, which, combined with technical knowledge, make them placement-ready by the end of the 6th semester.</p>
+        <p>Every year, over 100 companies visit our campus for recruitment, including national and international brands across all engineering branches. On average, more than 80% of students are placed annually.</p>
+    </div>
+
+    <div class="placement-image-container">
+        <img src="https://sdmcet.ac.in/downloads/2024/placement/img/ISE%202024.jpg" alt="ISE 2024 Placements" />
+    </div>
+
+    <div class="section">
+        <h2>Placement Overview</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>No. of Companies Visited</th>
+                    <th>Placement %</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>2019-20</td><td>96</td><td>18.3%</td></tr>
+                <tr><td>2020-21</td><td>131</td><td>24.9%</td></tr>
+                <tr><td>2021-22</td><td>129</td><td>12.4%</td></tr>
+                <tr><td>2022-23*</td><td>105</td><td>20%</td></tr>
+                <tr><td>2023-24*</td><td>65</td><td>24.5%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Placement Package Overview</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Average Package (in LPA)</th>
+                    <th>Highest Package (in LPA)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>2019-20</td><td>4.87</td><td>62</td></tr>
+                <tr><td>2020-21</td><td>5.06</td><td>40</td></tr>
+                <tr><td>2021-22</td><td>5.52</td><td>23.4</td></tr>
+                <tr><td>2022-23</td><td>5.9</td><td>41</td></tr>
+                <tr><td>2023-24*</td><td>6.59</td><td>43.94</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Placement Statistics</h2>
+        <div class="chart-container">
+            <canvas id="placementChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('placementChart').getContext('2d');
+        const placementChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+                datasets: [{
+                    label: 'Placement %',
+                    data: [18.3, 24.9, 12.4, 20, 24.5],
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Placement Percentage'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Academic Year'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
