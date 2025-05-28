@@ -83,16 +83,7 @@
     </form>
     {% endif %}
 
-    {% for job in job_list %}
-    <div class="job-card">
-      <h3>{{ job.title }}</h3>
-      <p><strong>Company:</strong> {{ job.company }}</p>
-      <p><strong>Location:</strong> {{ job.location }}</p>
-      <p><strong>Description:</strong> {{ job.description }}</p>
-      <p><a href="{{ job.link }}" target="_blank">Apply Here</a></p>
-      <p><em>Posted by {{ job.posted_by }}</em></p>
-    </div>
-    {% endfor %}
+    
   </div>
 </body>
 </html>

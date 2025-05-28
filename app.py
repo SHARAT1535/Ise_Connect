@@ -266,7 +266,7 @@ def send_message():
         db.collection('community_chat').add({
             'name': name,
             'text': text,
-            'timestamp': datetime.now()
+            'timestamp': firestore.SERVER_TIMESTAMP
         })
 
     return jsonify({'status': 'Message sent'})
@@ -297,8 +297,8 @@ def job_openings():
                 'description': request.form['description'],
                 'link': request.form['link'],
                 'posted_by': user.get('name'),
-                'posted_by_uid': user.get('uid'),
-                'timestamp': datetime.utcnow()
+                'posted_by_uid': user.get('uid')
+                
             }
             db.collection('job_openings').add(data)
             return redirect('/job_openings')
