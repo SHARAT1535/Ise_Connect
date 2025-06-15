@@ -113,34 +113,52 @@
         }
         
         nav {
-            background-color: #8B0000;
-            padding: 10px 0;
-        }
-        
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-        
-        nav ul li {
-            margin: 0 15px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 3px;
-            transition: background-color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
+    background-color: #8B0000;
+    padding: 0;
+    height: 40px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li a,
+.nav-dropdown-toggle {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    line-height: 1;
+    font-family: inherit;
+    font-size: inherit;
+    background: none;
+    border: none;
+}
+
+nav ul li a:hover,
+.nav-dropdown-toggle:hover {
+    background-color: rgb(255, 255, 255);
+    color: #8B0000;
+}
+
         
         .container {
             max-width: 1200px;
@@ -190,6 +208,104 @@
             transition: color 0.3s;
         }
         
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
+            }
+
+        .nav-dropdown-toggle {
+            background: none;
+            border: none;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: background-color 0.3s;
+            font-family: inherit;
+            font-size: inherit;
+            }
+
+        .nav-dropdown-toggle:hover {
+            background-color: rgb(255, 255, 255);
+            color: #8B0000;
+            }
+
+        .nav-dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+            }
+
+        .nav-dropdown:hover .nav-dropdown-toggle::after {
+            transform: rotate(180deg);
+            }
+
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.25rem;
+            z-index: 1000;
+            border: 1px solid #e5e7eb;
+            }
+
+        .nav-dropdown:hover .nav-dropdown-menu {
+            display: block;
+            }
+
+        .nav-dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-bottom: 1px solid #f0f0f0;
+            }
+
+        .nav-dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #8B0000;
+            }
+
+        .nav-dropdown-item:last-child {
+            border-bottom: none;
+            }
+
+        .nav-dropdown-submenu {
+            position: relative;
+            }
+
+        .nav-dropdown-submenu-menu {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: #fff;
+            min-width: 180px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.25rem;
+            border: 1px solid #e5e7eb;
+            }
+
+        .nav-dropdown-submenu:hover .nav-dropdown-submenu-menu {
+            display: block;
+            }
+
+        .nav-dropdown-submenu > .nav-dropdown-item::after {
+            content: '▶';
+            float: right;
+            font-size: 0.7rem;
+            }
+
         
         .page-title {
             background-color: #500303;
@@ -429,7 +545,31 @@
         <li><a href="{{ url_for('hello') }}">Home</a></li>
         <li><a href="{{ url_for('about_ise') }}">About ISE</a></li>
         <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
-        <li><a href="academics.html">Academics</a></li>
+        <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle">Academics</button>
+          <div class="nav-dropdown-menu">
+            <a href="https://res.cloudinary.com/ddphttbaa/image/upload/v1748346629/peos_v3hkvj.pdf" target="_blank" class="nav-dropdown-item">PEOs & POs</a>
+            <div class="nav-dropdown-submenu">
+              <a href="#" class="nav-dropdown-item">Syllabus</a>
+              <div class="nav-dropdown-submenu-menu">
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/I%20Year%20Syllabus%202024-25.pdf" target="_blank" class="nav-dropdown-item">1st Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/II%20Year%20Syllabus%202024-25.pdf" target="_blank" class="nav-dropdown-item">2nd Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/III%20Year%20Syllabus%202024-25.pdf" target="_blank" class="nav-dropdown-item">3rd Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/IV%20Year%20Syllabus%202024-25%20updated%20on%203-7-24.pdf" target="_blank" class="nav-dropdown-item">4th Year</a>
+              </div>
+            </div>
+            <div class="nav-dropdown-submenu">
+              <a href="/timetable" class="nav-dropdown-item">Timetable</a>
+              <div class="nav-dropdown-submenu-menu">
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/1-Sem.pdf" target="_blank" class="nav-dropdown-item">1st Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/3-Sem.pdf" target="_blank" class="nav-dropdown-item">2nd Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/5-Sem.pdf" target="_blank" class="nav-dropdown-item">3rd Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/7-Sem.pdf" target="_blank" class="nav-dropdown-item">4th Year</a>
+              </div>
+            </div>
+            <a href="https://sdmcet.ac.in/downloads/2023%20Data/ISE/ISE%20LABORATORY%20FACILITIES.pdf" target="_blank" class="nav-dropdown-item">Infrastructure</a>
+          </div>
+        </li>
         <li><a href="{{ url_for('placement') }}">Placement</a></li>
         <li><a href="{{url_for('elibrary')}}">E-Library</a></li>
         <li><a href="{{ url_for('alumni_page') }}">Alumini</a></li>

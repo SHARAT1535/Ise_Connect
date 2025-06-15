@@ -9,29 +9,39 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+      background-color: #f8f0f0;
       margin: 0;
       padding: 20px;
+    }
+
+    h2 {
+      color: #8B0000;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
     #chat-window {
       border: 1px solid #ccc;
       height: 300px;
       overflow-y: scroll;
-      padding: 10px;
-      background-color: white;
+      padding: 15px;
+      background-color: #fff5f5;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
     #message-input {
-      width: 80%;
+      width: 75%;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 8px;
+      outline: none;
     }
 
     #send-btn {
       padding: 10px 16px;
-      background-color: #007bff;
+      background-color: #8B0000;
       color: white;
       border: none;
       border-radius: 8px;
@@ -40,27 +50,41 @@
     }
 
     #send-btn:hover {
-      background-color: #0056b3;
+      background-color: #a80000;
     }
 
     .message {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
-    .message .sender {
+    .sender {
+      color: #8B0000;
       font-weight: bold;
     }
 
-    .message .content {
-      margin-left: 10px;
+    .content {
+      margin-left: 8px;
+      color: #333;
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
     }
   </style>
 </head>
 <body>
   <h2>Chat with Alumni</h2>
   <div id="chat-window"></div>
-  <input id="message-input" placeholder="Type a message..." />
-  <button id="send-btn" onclick="sendMessage()">Send</button>
+  <div class="input-wrapper">
+    <input id="message-input" placeholder="Type a message..." />
+    <button id="send-btn" onclick="sendMessage()">Send</button>
+  </div>
 
   <script>
     const currentUID = "{{ current_uid }}";  // User's UID
@@ -80,28 +104,24 @@
 
     const chatWindow = document.getElementById("chat-window");
 
-    // Real-time message listener
     db.collection("chats").doc(chatID).collection("messages")
       .orderBy("timestamp")
       .onSnapshot(snapshot => {
-        chatWindow.innerHTML = "";  // Clear chat window
+        chatWindow.innerHTML = "";
         snapshot.forEach(doc => {
           const data = doc.data();
           const msg = document.createElement("div");
           msg.classList.add("message");
 
-          // Display message
           const sender = data.sender_id === currentUID ? "You" : "Them";
           const messageContent = data.message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
           msg.innerHTML = `<span class="sender">${sender}:</span><span class="content">${messageContent}</span>`;
 
           chatWindow.appendChild(msg);
         });
-        // Scroll to the bottom of the chat window
         chatWindow.scrollTop = chatWindow.scrollHeight;
       });
 
-    // Send a message
     function sendMessage() {
       const input = document.getElementById("message-input");
       const message = input.value.trim();
@@ -114,7 +134,7 @@
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      input.value = "";  // Clear the input field
+      input.value = "";
     }
   </script>
 </body>

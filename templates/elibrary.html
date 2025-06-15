@@ -3,82 +3,418 @@
 <head>
   <title>E-Library</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+
+    .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s;
+      }
+        
+     .back-button:hover {
+            background-color: #600000;
+      }
+        
+    .back-button:before {
+            content: "←";
+            margin-right: 8px;
+            font-size: 18px;
+       }          
+
+       /* Header Styles */
+        header {
+        border-bottom: 2px solid #e5e7eb;
+        background-color: #fff;
+        }
+
+        .college-header {
+        display: flex;
+        align-items: center;
+        padding: 8px 15px;
+        }
+
+        .logo-section {
+        display: flex;
+        align-items: center;
+        gap: .90rem;
+        flex: 1;
+        }
+
+        .logo {
+        width: 70px;
+        height: auto;
+        }
+
+        .college-text {
+        margin-left: 15px;
+        }
+
+        .college-text h1 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #8B0000;
+        text-transform: uppercase;
+        line-height: 1.2;
+        }
+
+        .college-text p {
+        font-size: 0.75rem;
+        margin-top: 0.2rem;
+        color: #555;
+        }
+
+        .college-text h5 {
+        font-size: 0.6rem;
+        font-weight: bold;
+        color: #8B0000;
+        text-transform: uppercase;
+        }
+
+        .college-info {
+        font-size: 0.8rem;
+        color: #555;
+        max-width: 500px;
+        }
+
+        
+        .logo {
+            max-width: 150px;
+            margin-bottom: 10px;
+        }
+    nav {
+      background-color: #8B0000;
+      padding: 10px 0;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    nav ul li {
+      margin: 0 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+      display: inline-block;
+    }
+
+    nav ul li a:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .nav-dropdown {
+            position: relative;
+            display: inline-block;
+            }
+
+    .nav-dropdown-toggle {
+            background: none;
+            border: none;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: background-color 0.3s;
+            font-family: inherit;
+            font-size: inherit;
+            height: auto;
+            line-height: normal;
+            }
+
+    .nav-dropdown-toggle:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            }
+
+    .nav-dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+            }
+
+    .nav-dropdown:hover .nav-dropdown-toggle::after {
+            transform: rotate(180deg);
+            }
+
+    .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.25rem;
+            z-index: 1000;
+            border: 1px solid #e5e7eb;
+            margin-top: 5px;
+            }
+
+    .nav-dropdown:hover .nav-dropdown-menu {
+            display: block;
+            }
+
+    .nav-dropdown-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.875rem;
+            border-bottom: 1px solid #f0f0f0;
+            }
+
+    .nav-dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #8B0000;
+            }
+
+    .nav-dropdown-item:last-child {
+            border-bottom: none;
+            }
+
+    .nav-dropdown-submenu {
+            position: relative;
+            }
+
+    .nav-dropdown-submenu-menu {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: #fff;
+            min-width: 180px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.25rem;
+            border: 1px solid #e5e7eb;
+            }
+
+    .nav-dropdown-submenu:hover .nav-dropdown-submenu-menu {
+            display: block;
+            }
+
+    .nav-dropdown-submenu > .nav-dropdown-item::after {
+            content: '▶';
+            float: right;
+            font-size: 0.7rem;
+            }
+            
+    .library-header {
+      background-color: #8B0000;
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .filter-box {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 30px;
+    }
+
+    .library-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .library-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary {
+      background-color: #8B0000;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #a80000;
+    }
+
+    label {
+      font-weight: 500;
+      color: #8B0000;
+    }
+  </style>
+
   <script>
-  function filterItems() {
-    const selectedYear = document.getElementById("yearFilter").value;
-    const selectedType = document.getElementById("typeFilter").value;
-    const searchText = document.getElementById("searchInput").value.toLowerCase();
+    function filterItems() {
+      const selectedYear = document.getElementById("yearFilter").value;
+      const selectedType = document.getElementById("typeFilter").value;
+      const searchText = document.getElementById("searchInput").value.toLowerCase();
 
-    const cards = document.querySelectorAll(".library-card");
+      const cards = document.querySelectorAll(".library-card");
 
-    cards.forEach(card => {
-      const year = card.getAttribute("data-year");
-      const type = card.getAttribute("data-type").toLowerCase();
-      const title = card.getAttribute("data-title").toLowerCase();
-      const subject = card.getAttribute("data-subject").toLowerCase();
+      cards.forEach(card => {
+        const year = card.getAttribute("data-year");
+        const type = card.getAttribute("data-type").toLowerCase();
+        const title = card.getAttribute("data-title").toLowerCase();
+        const subject = card.getAttribute("data-subject").toLowerCase();
 
-      const show =
-        (selectedYear === "" || selectedYear === year) &&
-        (selectedType === "" || selectedType === type) &&
-        (searchText === "" || title.includes(searchText) || subject.includes(searchText) || type.includes(searchText));
+        const show =
+          (selectedYear === "" || selectedYear === year) &&
+          (selectedType === "" || selectedType === type) &&
+          (searchText === "" || title.includes(searchText) || subject.includes(searchText) || type.includes(searchText));
 
-      card.style.display = show ? "block" : "none";
-    });
-  }
-</script>
-
+        card.style.display = show ? "block" : "none";
+      });
+    }
+  </script>
 </head>
+
 <body>
-  <div class="container mt-4">
-    <h2 class="mb-4">E-Library</h2>
+  <a href="{{url_for('hello')}}" class="back-button">Back</a>
+  <!-- Header with College Logo and Name -->
+  <header>
+    <div class="container college-header">
+      <div class="logo-section">
+        <img src="https://res.cloudinary.com/ddphttbaa/image/upload/v1748155544/sdm_logo_zcp7pt.png" alt="SDMgbCET Logo" class="logo">
+        <div class="college-text">
+          <h1>SHRI DHARMASTHALA MANJUNATHESHWARA COLLEGE OF ENGINEERING & TECHNOLOGY</h1>
+          <b><p>(An Autonomous Institute under Visvesvaraya Technological University, Belagavi and Approved by All India Council for Technical Education, New Delhi)</p>
+          <p>NAAC ACCREDITED WITH 'A' GRADE | NBA ACCREDITED PROGRAMS</p></b>
+          <h5>CET CODE: E041/UGCID=K-8117</h5>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="{{ url_for('hello') }}">Home</a></li>
+      <li><a href="{{ url_for('about_ise') }}">About ISE</a></li>
+      <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+      <li class="nav-dropdown">
+          <button class="nav-dropdown-toggle">Academics</button>
+          <div class="nav-dropdown-menu">
+            <a href="https://res.cloudinary.com/ddphttbaa/image/upload/v1748346629/peos_v3hkvj.pdf" target="_blank" class="nav-dropdown-item">PEOs & POs</a>
+            <div class="nav-dropdown-submenu">
+              <a href="#" class="nav-dropdown-item">Syllabus</a>
+              <div class="nav-dropdown-submenu-menu">
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/I%20Year%20Syllabus%202024-25.pdf" target="_blank" class="nav-dropdown-item">1st Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/II%20Year%20Syllabus%202024-25.pdf" target="_blank" class="nav-dropdown-item">2nd Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/III%20Year%20Syllabus%202024-25.pdf" target="_blank" class="nav-dropdown-item">3rd Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/IV%20Year%20Syllabus%202024-25%20updated%20on%203-7-24.pdf" target="_blank" class="nav-dropdown-item">4th Year</a>
+              </div>
+            </div>
+            <div class="nav-dropdown-submenu">
+              <a href="/timetable" class="nav-dropdown-item">Timetable</a>
+              <div class="nav-dropdown-submenu-menu">
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/1-Sem.pdf" target="_blank" class="nav-dropdown-item">1st Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/3-Sem.pdf" target="_blank" class="nav-dropdown-item">2nd Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/5-Sem.pdf" target="_blank" class="nav-dropdown-item">3rd Year</a>
+                <a href="https://sdmcet.ac.in/downloads/2024/syllabus-timetable/ISE/7-Sem.pdf" target="_blank" class="nav-dropdown-item">4th Year</a>
+              </div>
+            </div>
+            <a href="https://sdmcet.ac.in/downloads/2023%20Data/ISE/ISE%20LABORATORY%20FACILITIES.pdf" target="_blank" class="nav-dropdown-item">Infrastructure</a>
+          </div>
+        </li>
+      <li><a href="{{ url_for('placement') }}">Placement</a></li>
+      <li><a href="{{ url_for('elibrary') }}">E-Library</a></li>
+      <li><a href="{{ url_for('alumni_page') }}">Alumini</a></li>
+      <li><a href="{{ url_for('staff') }}">Faculty</a></li>
+      <li><a href="{{ url_for('gallery_page') }}">Gallery</a></li>
+      <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+    </ul>
+  </nav>  
+  <div class="container">
+    <!-- Header -->
+    <div class="library-header">
+      <h2 class="mb-0">E-Library</h2>
+    </div>
 
     <!-- Filters -->
-    <div class="row mb-4">
-      <div class="col-md-3">
-        <label for="yearFilter">Year:</label>
-        <select id="yearFilter" class="form-select" onchange="filterItems()">
-          <option value="">All Years</option>
-          <option value="1">1st Year</option>
-          <option value="2">2nd Year</option>
-          <option value="3">3rd Year</option>
-          <option value="4">4th Year</option>
-        </select>
-      </div>
+    <div class="filter-box mt-4">
+      <div class="row">
+        <div class="col-md-3 mb-3">
+          <label for="yearFilter">Year:</label>
+          <select id="yearFilter" class="form-select" onchange="filterItems()">
+            <option value="">All Years</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
+          </select>
+        </div>
 
-      <div class="col-md-3">
-        <label for="typeFilter">Type:</label>
-        <select id="typeFilter" class="form-select" onchange="filterItems()">
-          <option value="">All Types</option>
-          <option value="notes">Notes</option>
-          <option value="pyq">PYQ</option>
-        </select>
-      </div>
+        <div class="col-md-3 mb-3">
+          <label for="typeFilter">Type:</label>
+          <select id="typeFilter" class="form-select" onchange="filterItems()">
+            <option value="">All Types</option>
+            <option value="notes">Notes</option>
+            <option value="pyq">PYQ</option>
+          </select>
+        </div>
 
-      <div class="col-md-6">
-        <label for="searchInput">Search (Title or Subject):</label>
-        <input type="text" id="searchInput" class="form-control" placeholder="Search..." oninput="filterItems()">
+        <div class="col-md-6 mb-3">
+          <label for="searchInput">Search (Title or Subject):</label>
+          <input type="text" id="searchInput" class="form-control" placeholder="Search..." oninput="filterItems()">
+        </div>
       </div>
     </div>
 
     <!-- E-Library Cards -->
-    {% for item in materials %}
-      <div class="card mb-3 library-card"
-           data-year="{{ item.year }}"
-           data-type="{{ item.type }}"
-           data-title="{{ item.title }}"
-           data-subject="{{ item.subject }}">
-        <div class="card-body">
-          <h5 class="card-title">{{ item.title }}</h5>
-          <p class="card-text">
-            <strong>Type:</strong> {{ item.type|capitalize }} |
-            <strong>Year:</strong> {{ item.year }} |
-            <strong>Semester:</strong> {{ item.semester }} |
-            <strong>Subject:</strong> {{ item.subject }}
-          </p>
-          <a href="{{ item.link }}" target="_blank" class="btn btn-primary">View Document</a>
+    <div class="mt-4">
+      {% for item in materials %}
+        <div class="card mb-4 library-card"
+             data-year="{{ item.year }}"
+             data-type="{{ item.type }}"
+             data-title="{{ item.title }}"
+             data-subject="{{ item.subject }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">
+              <strong>Type:</strong> {{ item.type|capitalize }} |
+              <strong>Year:</strong> {{ item.year }} |
+              <strong>Semester:</strong> {{ item.semester }} |
+              <strong>Subject:</strong> {{ item.subject }}
+            </p>
+            <a href="{{ item.link }}" target="_blank" class="btn btn-primary">View Document</a>
+          </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
 </body>
 </html>

@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>Admin Dashboard</title>
     <style>
-        /* Reset some default elements */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -65,22 +63,35 @@
             background-color: #2980b9;
             box-shadow: 0 6px 10px rgba(41, 128, 185, 0.6);
         }
+        .flash-messages {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .flash-error {
+            color: #d32f2f;
+            font-size: 0.9rem;
+        }
+        .flash-success {
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+       
         <h1>Welcome, Admin</h1>
         <p>Select an action:</p>
         <ul>
             <li><a href="{{url_for('admin_users')}}">Manage Users</a></li>
             <li><a href="{{url_for('admin_gallery')}}">Upload Gallery</a></li>
             <li><a href="{{url_for('add_news')}}">Add News</a></li>
-            <li><a href="{{url_for('upload_elibrary')}}">e library admin </a></li>
-            <li><a href="{{url_for('uplode_achievment')}}">Add Achievement</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="{{url_for('upload_elibrary')}}">e library admin</a></li>
+            <li><a href="{{ url_for('uplode_achievment') }}">Add Achievement</a></li>
+            <li><a href="{{ url_for('admin_feedback') }}">View Feedback</a></li>
+            <li><a href="{{ url_for('add_notice') }}">Add Notices</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
         </ul>
     </div>
 </body>
 </html>
-
-```
