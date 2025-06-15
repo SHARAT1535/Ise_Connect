@@ -81,11 +81,6 @@ python app.py
   - News section
 - Uses Firebase and Cloudinary just like the web app
 
-## 👥 Contributors
-
-- [Your Name] - Backend & Firebase Integration
-- [Friend's Name] - UI/UX & Frontend Styling
-- [Team Member] - Android App (Kotlin)
 
 ## 📄 License
 
